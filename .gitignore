@@ -1,0 +1,7 @@
+﻿################################################################################
+# 這個 .gitignore 檔案由 Microsoft(R) Visual Studio 自動建立。
+################################################################################
+
+/Currency.API/.vs/Currency.API
+/Currency.API/bin/Debug/net8.0
+/Currency.API/obj
