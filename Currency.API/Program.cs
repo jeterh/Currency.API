@@ -6,6 +6,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpClient();
+
+Currency.API.Application.Register.RegisterMediator(builder.Services);
+Currency.API.Infrastructure.Register.RegisterScopedRepository(builder.Services);
+Currency.API.Infrastructure.Register.RegisterScopedDBConnection(builder.Services, builder.Configuration);
 
 var app = builder.Build();
 
