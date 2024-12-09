@@ -63,21 +63,6 @@ namespace Currency.API.Infrastructure.Repositories
 			return result;
 		}
 
-		public async Task<bool> DeleteTimeInfoAsync(int timeInfoId)
-		{
-			string sql = @"DELETE FROM [dbo].[TimeInfo]
-                           WHERE Id = @timeInfoId";
-			try
-			{
-				int rowEffectiveCounts = await _con.ExecuteAsync(sql, new { timeInfoId });
-				return rowEffectiveCounts == 1;
-			}
-			catch
-			{
-				throw;
-			}
-		}
-
 		public async Task<bool> UpdateTimeInfoAsync(UpdateTimeInfoInput input)
 		{
 			string sql = @"UPDATE [dbo].[TimeInfo]

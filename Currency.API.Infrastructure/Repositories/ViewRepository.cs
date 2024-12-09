@@ -1,16 +1,8 @@
-﻿using Currency.API.Domain.IRepositories.TimeInfo.Model;
-using Currency.API.Domain.IRepositories.TimeInfo;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
+﻿using System.Data;
 using System.Text;
-using System.Threading.Tasks;
 using Currency.API.Domain.IRepositories.View;
 using Dapper;
 using Currency.API.Domain.IRepositories.View.Model;
-using Currency.API.Domain.IRepositories.Bpi.Model;
-using Currency.API.Domain.IRepositories.Content.Model;
 
 namespace Currency.API.Infrastructure.Repositories
 {

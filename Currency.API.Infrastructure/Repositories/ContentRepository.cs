@@ -15,7 +15,7 @@ namespace Currency.API.Infrastructure.Repositories
 			_con = con;
 		}
 
-		public async Task<IEnumerable<GetContentOutput>> GetContentAsync(string timeInfoId)
+		public async Task<IEnumerable<GetContentOutput>> GetContentAsync(Guid timeInfoId)
 		{
 			StringBuilder sql = new StringBuilder();
 			sql.AppendLine(@"SELECT [Id],[TimeInfoId],[ContentnKey],[Language],[Content] FROM [dbo].[Content] WITH(NOLOCK)"); ;
@@ -59,13 +59,13 @@ namespace Currency.API.Infrastructure.Repositories
 			return result;
 		}
 
-		public async Task<bool> DeleteContentAsync(int timeInfoId)
+		public async Task<bool> DeleteContentAsync(DeleteContentInput input)
 		{
 			string sql = @"DELETE FROM [dbo].[Content]
-                           WHERE TimeInfoId = @timeInfoId";
+                           WHERE TimeInfoId = @timeInfoId and ContentnKey = @ContentnKey and Language = @Language ";
 			try
 			{
-				int rowEffectiveCounts = await _con.ExecuteAsync(sql, new { timeInfoId });
+				int rowEffectiveCounts = await _con.ExecuteAsync(sql, input);
 				return rowEffectiveCounts == 1;
 			}
 			catch

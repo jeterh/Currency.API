@@ -6,8 +6,6 @@ namespace Currency.API.Domain.IRepositories.TimeInfo
 	{
 		Task<GetTimeInfoOutput> GetTimeInfoAsync(Guid timeInfoId);
 		Task<bool> InsertTimeInfoAsync(InsertTimeInfoInput input);
-		Task<bool> DeleteTimeInfoAsync(int timeInfoId);
 		Task<bool> UpdateTimeInfoAsync(UpdateTimeInfoInput input);
-
 	}
 }

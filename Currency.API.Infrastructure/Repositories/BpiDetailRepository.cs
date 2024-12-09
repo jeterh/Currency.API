@@ -60,7 +60,7 @@ namespace Currency.API.Infrastructure.Repositories
 		public async Task<bool> DeleteBpiDetailAsync(int id)
 		{
 			string sql = @"DELETE FROM [dbo].[BpiDetail]
-                           WHERE id = @id";
+                           WHERE Id = @id";
 			try
 			{
 				int rowEffectiveCounts = await _con.ExecuteAsync(sql, new { id });

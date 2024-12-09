@@ -63,27 +63,25 @@ namespace Currency.API.Infrastructure.Repositories
 			}
 		}
 
-		public async Task<bool> DeleteBpiAsync(int timeInfoId)
-		{
-			string sql = @"DELETE FROM [dbo].[Bpi]
-                           WHERE TimeInfoId = @timeInfoId";
-			try
-			{
-				int rowEffectiveCounts = await _con.ExecuteAsync(sql, new { timeInfoId });
-				return rowEffectiveCounts == 1;
-			}
-			catch
-			{
-				throw;
-			}
-		}
-
 		public async Task<bool> UpdateBpiAsync(UpdateBpiInput input)
 		{
-			string sql = @"UPDATE [dbo].[Bpi]
-                           SET [Symbol] = @Symbol
-                              ,[Rate] = @Rate
-							  ,[RateFloat] = @RateFloat
+			string sqlSet = string.Empty;
+			if (!string.IsNullOrEmpty(input.Symbol))
+			{
+				sqlSet = "[Symbol] = @Symbol";
+			}
+
+			if (!string.IsNullOrEmpty(input.Rate))
+			{
+				sqlSet = "[Rate] = @Rate";
+			}
+			if (input.RateFloat != null)
+			{
+				sqlSet = "[RateFloat] = @RateFloat";
+			}
+
+			string sql = @$"UPDATE [dbo].[Bpi]
+                           SET {sqlSet}
                          WHERE TimeInfoId = @TimeInfoId and CurrencyCode = @Code";
 
 			bool result = false;
@@ -97,7 +95,7 @@ namespace Currency.API.Infrastructure.Repositories
 			}
 			catch
 			{
-				throw;
+				result = false;
 			}
 
 			return result;

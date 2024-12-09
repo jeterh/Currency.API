@@ -5,8 +5,8 @@ namespace Currency.API.Domain.IRepositories.Bpi.Model
 	{
 		public Guid TimeInfoId { get; set; }
 		public string Code { get; set; } = null!;
-		public string Symbol { get; set; } = null!;
-		public string Rate { get; set; } = null!;
-		public double RateFloat { get; set; }
+		public string? Symbol { get; set; }
+		public string? Rate { get; set; }
+		public decimal? RateFloat { get; set; }
 	}
 }

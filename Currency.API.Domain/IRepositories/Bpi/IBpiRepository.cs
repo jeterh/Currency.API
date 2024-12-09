@@ -6,7 +6,6 @@ namespace Currency.API.Domain.IRepositories.Bpi
 	{
 		Task<IEnumerable<GetBpiOutput>> GetBpiAsync(Guid timeInfoId);
 		Task<int?> InsertBpiAsync(InsertBpiInput input);
-		Task<bool> DeleteBpiAsync(int timeInfoId);
 		Task<bool> UpdateBpiAsync(UpdateBpiInput input);
 	}
 }

@@ -35,7 +35,7 @@ namespace Currency.API.Application.Coindesk
 		public string? Symbol { get; set; }
 		public string? Rate { get; set; }
 		public string? Description { get; set; }
-		public double Rate_Float { get; set; }
+		public decimal Rate_Float { get; set; }
 	}
 
 	public class GBP
@@ -44,7 +44,7 @@ namespace Currency.API.Application.Coindesk
 		public string? Symbol { get; set; }
 		public string? Rate { get; set; }
 		public string? Description { get; set; }
-		public double Rate_float { get; set; }
+		public decimal Rate_float { get; set; }
 	}
 
 	public class Time
@@ -60,7 +60,7 @@ namespace Currency.API.Application.Coindesk
 		public string? Symbol { get; set; }
 		public string? Rate { get; set; }
 		public string? Description { get; set; }
-		public double Rate_float { get; set; }
+		public decimal Rate_float { get; set; }
 	}
 
 	public class GetCoindeskInfoInputHandler : IRequestHandler<GetCoindeskInfoInput, ResponseModel<GetCoindeskInfoResponse>>
@@ -243,7 +243,7 @@ namespace Currency.API.Application.Coindesk
 					Symbol = WebUtility.HtmlDecode(condeskInfo.Bpi!.Usd!.Symbol!),
 				});
 
-				if (!updateTimeInfoResult)
+				if (!updateUsdBpiResult)
 				{
 					return result.Error(ReturnCodeEnum.Fail, "更新Bpi USD失敗");
 				}
