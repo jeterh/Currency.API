@@ -7,7 +7,7 @@ namespace Currency.API.Application.Currency
 	public class DeleteCurrencyContentInput : IRequest<ResponseModel>
 	{
 		public Guid TimeInfoId { get; set; }
-		public string ContentnKey { get; set; } = null!;
+		public string ContentKey { get; set; } = null!;
 		public string Language { get; set; } = null!;
 	}
 
@@ -35,15 +35,15 @@ namespace Currency.API.Application.Currency
 				return new ResponseModel().Error(ReturnCodeEnum.Fail, $"你輸入的TimeInfoId：{request.TimeInfoId}不存在任何資料。");
 			}
 
-			var contentResult = contentsResult.Where(x => x.Language == request.Language && x.ContentnKey == request.ContentnKey).FirstOrDefault();
+			var contentResult = contentsResult.Where(x => x.Language == request.Language && x.ContentKey == request.ContentKey).FirstOrDefault();
 			if (contentResult == null)
 			{
-				return new ResponseModel().Error(ReturnCodeEnum.Fail, $"你輸入的TimeInfoId：{request.TimeInfoId}的Language:{request.Language}或ContentnKey:{request.ContentnKey}不存在，無法刪除此語系");
+				return new ResponseModel().Error(ReturnCodeEnum.Fail, $"你輸入的TimeInfoId：{request.TimeInfoId}的Language:{request.Language}或ContentKey:{request.ContentKey}不存在，無法刪除此語系");
 			}
 
 			var deleteBpiDetailResult = await _contentRepository.DeleteContentAsync(new Domain.IRepositories.Content.Model.DeleteContentInput { 
 				TimeInfoId = request.TimeInfoId,
-				ContentnKey = request.ContentnKey,
+				ContentKey = request.ContentKey,
 				Language = request.Language,
 			});
 
@@ -62,9 +62,9 @@ namespace Currency.API.Application.Currency
 				return new ResponseModel().Error(ReturnCodeEnum.Fail, "en-us is default Language can't delete.");
 			}
 
-			if (request.ContentnKey == null || (request.ContentnKey != "Disclaimer" && request.ContentnKey != "ChartName"))
+			if (request.ContentKey == null || (request.ContentKey != "Disclaimer" && request.ContentKey != "ChartName"))
 			{
-				return new ResponseModel().Error(ReturnCodeEnum.Fail, "ContentnKey incorrect.");
+				return new ResponseModel().Error(ReturnCodeEnum.Fail, "ContentKey incorrect.");
 			}
 
 			return new ResponseModel

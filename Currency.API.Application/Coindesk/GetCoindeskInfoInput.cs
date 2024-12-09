@@ -192,7 +192,7 @@ namespace Currency.API.Application.Coindesk
 				{
 					TimeInfoId = timeInfoId,
 					Language = "en-us",
-					ContentnKey = nameof(condeskInfo.Disclaimer),
+					ContentKey = nameof(condeskInfo.Disclaimer),
 					Content = condeskInfo.Disclaimer!
 				});
 				#endregion
@@ -202,7 +202,7 @@ namespace Currency.API.Application.Coindesk
 				{
 					TimeInfoId = timeInfoId,
 					Language = "en-us",
-					ContentnKey = nameof(condeskInfo.ChartName),
+					ContentKey = nameof(condeskInfo.ChartName),
 					Content = condeskInfo.ChartName!
 				});
 				#endregion
@@ -313,7 +313,7 @@ namespace Currency.API.Application.Coindesk
 				{
 					TimeInfoId = timeInfoId,
 					Language = "en-us",
-					ContentnKey = nameof(condeskInfo.Disclaimer),
+					ContentKey = nameof(condeskInfo.Disclaimer),
 					Content = condeskInfo.Disclaimer!
 				});
 
@@ -326,7 +326,7 @@ namespace Currency.API.Application.Coindesk
 				{
 					TimeInfoId = timeInfoId,
 					Language = "en-us",
-					ContentnKey = nameof(condeskInfo.ChartName),
+					ContentKey = nameof(condeskInfo.ChartName),
 					Content = condeskInfo.ChartName!
 				});
 

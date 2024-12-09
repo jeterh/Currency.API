@@ -18,7 +18,7 @@ namespace Currency.API.Infrastructure.Repositories
 		public async Task<IEnumerable<GetContentOutput>> GetContentAsync(Guid timeInfoId)
 		{
 			StringBuilder sql = new StringBuilder();
-			sql.AppendLine(@"SELECT [Id],[TimeInfoId],[ContentnKey],[Language],[Content] FROM [dbo].[Content] WITH(NOLOCK)"); ;
+			sql.AppendLine(@"SELECT [Id],[TimeInfoId],[ContentKey],[Language],[Content] FROM [dbo].[Content] WITH(NOLOCK)"); ;
 			sql.AppendLine(" WHERE TimeInfoId = @timeInfoId");
 
 			var data = await _con.QueryAsync<GetContentOutput>(sql.ToString(), new
@@ -33,12 +33,12 @@ namespace Currency.API.Infrastructure.Repositories
 		{
 			string sql = @"INSERT INTO [dbo].[Content]
 			   ([TimeInfoId]
-			   ,[ContentnKey] 
+			   ,[ContentKey] 
 			   ,[Language]
 			   ,[Content])
 				VALUES
 			   (@TimeInfoId
-			   ,@ContentnKey 
+			   ,@ContentKey 
 			   ,@Language
 			   ,@Content)";
 
@@ -62,7 +62,7 @@ namespace Currency.API.Infrastructure.Repositories
 		public async Task<bool> DeleteContentAsync(DeleteContentInput input)
 		{
 			string sql = @"DELETE FROM [dbo].[Content]
-                           WHERE TimeInfoId = @timeInfoId and ContentnKey = @ContentnKey and Language = @Language ";
+                           WHERE TimeInfoId = @timeInfoId and ContentKey = @ContentKey and Language = @Language ";
 			try
 			{
 				int rowEffectiveCounts = await _con.ExecuteAsync(sql, input);
@@ -78,7 +78,7 @@ namespace Currency.API.Infrastructure.Repositories
 		{
 			string sql = @"UPDATE [dbo].[Content]
                            SET [Content] = @Content
-                         WHERE TimeInfoId = @TimeInfoId and ContentnKey = @ContentnKey and Language = @Language";
+                         WHERE TimeInfoId = @TimeInfoId and ContentKey = @ContentKey and Language = @Language";
 
 			bool result = false;
 			try

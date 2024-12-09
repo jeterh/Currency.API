@@ -19,8 +19,8 @@ namespace Currency.API.Infrastructure.Repositories
 		{
 			StringBuilder sql = new StringBuilder();
 			sql.AppendLine(@"SELECT ti.[Updated],
-				MAX(CASE WHEN c.ContentnKey = 'Disclaimer' THEN Content END) AS DisclaimerContent,
-				MAX(CASE WHEN c.ContentnKey = 'ChartName' THEN Content END) AS ChartNameContent,
+				MAX(CASE WHEN c.ContentKey = 'Disclaimer' THEN Content END) AS DisclaimerContent,
+				MAX(CASE WHEN c.ContentKey = 'ChartName' THEN Content END) AS ChartNameContent,
 				c.Language
 					FROM [dbo].[TimeInfo] AS ti WITH(NOLOCK)
 					INNER JOIN Content AS c WITH(NOLOCK) ON ti.Id = c.TimeInfoId

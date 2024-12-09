@@ -7,7 +7,7 @@ namespace Currency.API.Application.Currency
 	public class UpdateCurrencyContentInput : IRequest<ResponseModel>
 	{
 		public Guid TimeInfoId { get; set; }
-		public string ContentnKey { get; set; } = null!;
+		public string ContentKey { get; set; } = null!;
 		public string Language { get; set; } = null!;
 		public string Content { get; set; } = null!;
 	}
@@ -45,7 +45,7 @@ namespace Currency.API.Application.Currency
 			{
 				TimeInfoId = request.TimeInfoId,
 				Language = request.Language,
-				ContentnKey = request.ContentnKey,
+				ContentKey = request.ContentKey,
 				Content = request.Content
 			});
 
@@ -59,9 +59,9 @@ namespace Currency.API.Application.Currency
 				return new ResponseModel().Error(ReturnCodeEnum.Fail, "TimeInfoId can't be empty.");
 			}
 
-			if (request.ContentnKey == null || (request.ContentnKey != "Disclaimer" && request.ContentnKey != "ChartName"))
+			if (request.ContentKey == null || (request.ContentKey != "Disclaimer" && request.ContentKey != "ChartName"))
 			{
-				return new ResponseModel().Error(ReturnCodeEnum.Fail, "ContentnKey incorrect.");
+				return new ResponseModel().Error(ReturnCodeEnum.Fail, "ContentKey incorrect.");
 			}
 
 			return new ResponseModel
