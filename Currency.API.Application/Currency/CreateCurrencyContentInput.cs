@@ -36,7 +36,7 @@ namespace Currency.API.Application.Currency
 				return new ResponseModel().Error(ReturnCodeEnum.Fail, $"你輸入的TimeInfoId：{request.TimeInfoId}不存在任何資料。");
 			}
 
-			var contentResult = contentsResult.Where(x => x.Language == request.Language).FirstOrDefault();
+			var contentResult = contentsResult.Where(x => x.Language == request.Language && x.ContentKey == request.ContentKey).FirstOrDefault();
 			if (contentResult != null)
 			{
 				return new ResponseModel().Error(ReturnCodeEnum.Fail, $"你輸入的TimeInfoId：{request.TimeInfoId}的Language:{request.Language}已存在，無法新增此語系");

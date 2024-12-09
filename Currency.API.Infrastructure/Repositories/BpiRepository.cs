@@ -73,11 +73,12 @@ namespace Currency.API.Infrastructure.Repositories
 
 			if (!string.IsNullOrEmpty(input.Rate))
 			{
-				sqlSet = "[Rate] = @Rate";
+				sqlSet += !string.IsNullOrEmpty(sqlSet) ? ",[Rate] = @Rate" : "[Rate] = @Rate";
 			}
+
 			if (input.RateFloat != null)
 			{
-				sqlSet = "[RateFloat] = @RateFloat";
+				sqlSet += !string.IsNullOrEmpty(sqlSet) ? ",[RateFloat] = @RateFloat" : "[RateFloat] = @RateFloat";
 			}
 
 			string sql = @$"UPDATE [dbo].[Bpi]
