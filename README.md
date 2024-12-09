@@ -207,6 +207,7 @@ Reponse:
 }
 ‵‵‵
 
+
 2.	Error handling 處理 API response
    A：設定自定義Reponse model
   	{
@@ -216,16 +217,16 @@ Reponse:
    }
 4.	swagger-ui
   A:<img width="1318" alt="image" src="https://github.com/user-attachments/assets/3c8a438e-d21f-4332-941a-d972c83600d5">
-5.	多語系設計
+6.	多語系設計
   A:Currency的GET API 取得多國語系幣別資訊, 當有填寫其他Language文案時，可透過Language可以切換至其他語系
     <img width="649" alt="image" src="https://github.com/user-attachments/assets/4cfe04b3-0df9-4b76-a2cc-8809745c07b8">
-7.	design pattern 實作
+8.	design pattern 實作
   A:整個專案都是使用Mediator(中介者模式)的design pattern進行開發，中介者模式最主要的好處為
     (1)乾淨的架構和關注點分離
     (2)減少耦合
-9.	能夠運行在 Docker
+10.	能夠運行在 Docker
    A：<img width="278" alt="image" src="https://github.com/user-attachments/assets/a59d1041-e2dc-4a9e-bed1-8301b82470bc">
-11.	加解密技術應用 (AES/RSA…etc.)
+12.	加解密技術應用 (AES/RSA…etc.)
    Ａ:API的安全機制部份，在Header實作了Client-Id及Client-Secret的驗證機制，並且Client-Secret使用AES256進行加驗證，資料庫內儲存的是已Encrypt的AES256碼，可以避免人員讀取資料直接查詢到名碼的Secret KEY
      <img width="491" alt="image" src="https://github.com/user-attachments/assets/81f34ee2-4a7b-4091-9d73-ac5ded6337ce">
      <img width="529" alt="image" src="https://github.com/user-attachments/assets/6596ea99-f115-44d8-862b-8e891ae41566">
