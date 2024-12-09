@@ -1,8 +1,10 @@
 ﻿using Currency.API.Application.Coindesk;
+using Currency.API.AttributeFilter;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Currency.API.Controllers
 {
+	[ApplicationAuthenticationFilter]
 	public class CoindeskController : BaseAPIController
 	{
 		[HttpGet]

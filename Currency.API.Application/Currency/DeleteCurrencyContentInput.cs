@@ -9,60 +9,60 @@ namespace Currency.API.Application.Currency
 		public Guid TimeInfoId { get; set; }
 		public string ContentnKey { get; set; } = null!;
 		public string Language { get; set; } = null!;
+	}
 
-		public class DeleteCurrencyContentInputHandler : IRequestHandler<DeleteCurrencyContentInput, ResponseModel>
+	public class DeleteCurrencyContentInputHandler : IRequestHandler<DeleteCurrencyContentInput, ResponseModel>
+	{
+		private readonly IContentRepository _contentRepository;
+
+
+		public DeleteCurrencyContentInputHandler(IContentRepository contentRepository)
 		{
-			private readonly IContentRepository _contentRepository;
-
-
-			public DeleteCurrencyContentInputHandler(IContentRepository contentRepository)
-			{
-				_contentRepository = contentRepository;
-			}
-
-			public async Task<ResponseModel> Handle(DeleteCurrencyContentInput request, CancellationToken cancellationToken)
-			{
-				var validationResult = request.Validate();
-				if (!validationResult.IsSuccess)
-				{
-					return validationResult;
-				}
-
-				var contentsResult = await _contentRepository.GetContentAsync(request.TimeInfoId);
-				if (contentsResult == null)
-				{
-					return new ResponseModel().Error(ReturnCodeEnum.Fail, $"你輸入的TimeInfoId：{request.TimeInfoId}不存在任何資料。");
-				}
-
-				var contentResult = contentsResult.Where(x => x.Language == request.Language && x.ContentnKey == request.ContentnKey).FirstOrDefault();
-				if (contentResult == null)
-				{
-					return new ResponseModel().Error(ReturnCodeEnum.Fail, $"你輸入的TimeInfoId：{request.TimeInfoId}的Language:{request.Language}或ContentnKey:{request.ContentnKey}不存在，無法刪除此語系");
-				}
-
-				var deleteBpiDetailResult = await _contentRepository.DeleteContentAsync(new Domain.IRepositories.Content.Model.DeleteContentInput { 
-					TimeInfoId = request.TimeInfoId,
-					ContentnKey = request.ContentnKey,
-					Language = request.Language,
-				});
-
-				return deleteBpiDetailResult ? new ResponseModel().Success() : new ResponseModel().Error(ReturnCodeEnum.Fail, "刪除失敗!");
-			}
+			_contentRepository = contentRepository;
 		}
 
-		private ResponseModel Validate()
+		public async Task<ResponseModel> Handle(DeleteCurrencyContentInput request, CancellationToken cancellationToken)
 		{
-			if (TimeInfoId == Guid.Empty)
+			var validationResult = this.Validate(request);
+			if (!validationResult.IsSuccess)
+			{
+				return validationResult;
+			}
+
+			var contentsResult = await _contentRepository.GetContentAsync(request.TimeInfoId);
+			if (contentsResult == null)
+			{
+				return new ResponseModel().Error(ReturnCodeEnum.Fail, $"你輸入的TimeInfoId：{request.TimeInfoId}不存在任何資料。");
+			}
+
+			var contentResult = contentsResult.Where(x => x.Language == request.Language && x.ContentnKey == request.ContentnKey).FirstOrDefault();
+			if (contentResult == null)
+			{
+				return new ResponseModel().Error(ReturnCodeEnum.Fail, $"你輸入的TimeInfoId：{request.TimeInfoId}的Language:{request.Language}或ContentnKey:{request.ContentnKey}不存在，無法刪除此語系");
+			}
+
+			var deleteBpiDetailResult = await _contentRepository.DeleteContentAsync(new Domain.IRepositories.Content.Model.DeleteContentInput { 
+				TimeInfoId = request.TimeInfoId,
+				ContentnKey = request.ContentnKey,
+				Language = request.Language,
+			});
+
+			return deleteBpiDetailResult ? new ResponseModel().Success() : new ResponseModel().Error(ReturnCodeEnum.Fail, "刪除失敗!");
+		}
+
+		private ResponseModel Validate(DeleteCurrencyContentInput request)
+		{
+			if (request.TimeInfoId == Guid.Empty)
 			{
 				return new ResponseModel().Error(ReturnCodeEnum.Fail, "TimeInfoId can't be empty.");
 			}
-			
-			if (Language == "en-us")
+
+			if (request.Language == "en-us")
 			{
 				return new ResponseModel().Error(ReturnCodeEnum.Fail, "en-us is default Language can't delete.");
 			}
 
-			if (ContentnKey == null || (ContentnKey != "Disclaimer" && ContentnKey != "ChartName"))
+			if (request.ContentnKey == null || (request.ContentnKey != "Disclaimer" && request.ContentnKey != "ChartName"))
 			{
 				return new ResponseModel().Error(ReturnCodeEnum.Fail, "ContentnKey incorrect.");
 			}
@@ -75,4 +75,6 @@ namespace Currency.API.Application.Currency
 			};
 		}
 	}
+
+
 }

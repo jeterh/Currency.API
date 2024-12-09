@@ -11,6 +11,14 @@ namespace Currency.API.Application
 			{
 				cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
 			});
+		}
+
+		public static void RegisterScopedServices(IServiceCollection services)
+		{
+			services.Scan(scan => scan.FromCallingAssembly()
+			.AddClasses(classes => classes.Where(t => t.Name.EndsWith("Service", StringComparison.OrdinalIgnoreCase)))
+			.AsImplementedInterfaces()
+			.WithScopedLifetime());
 
 		}
 	}
