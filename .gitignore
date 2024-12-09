@@ -15,3 +15,5 @@
 /Currency.API.Infrastructure/bin/Debug/net8.0
 /Currency.API.Infrastructure/obj
 /Currency.API/.vs/ProjectEvaluation
+/Currency.API.UnitTest/bin/Debug/net8.0
+/Currency.API.UnitTest/obj

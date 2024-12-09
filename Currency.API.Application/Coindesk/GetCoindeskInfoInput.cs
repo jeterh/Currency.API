@@ -12,6 +12,7 @@ namespace Currency.API.Application.Coindesk
 {
 	public class GetCoindeskInfoInput : IRequest<ResponseModel<GetCoindeskInfoResponse>>
 	{
+		public Guid? TimeInfoId { get; set; }
 	}
 
 	public class GetCoindeskInfoResponse
@@ -70,14 +71,12 @@ namespace Currency.API.Application.Coindesk
 		private readonly IContentRepository _contentRepository;
 		private readonly IBpiRepository _bpiRepository;
 		private readonly IBpiDetailRepository _bpiDetailRepository;
-		private readonly IConfiguration _configuration;
 
-		public GetCoindeskInfoInputHandler(HttpClient httpClient,  IConfiguration configuration, ITimeInfoRepository timeInfoRepository,
+		public GetCoindeskInfoInputHandler(HttpClient httpClient, ITimeInfoRepository timeInfoRepository,
 			IContentRepository contentRepository, IBpiRepository bpiRepository, IBpiDetailRepository bpiDetailRepository
 			)
 		{
 			_httpClient = httpClient;
-			_configuration = configuration;
 			_timeInfoRepository = timeInfoRepository;
 			_contentRepository = contentRepository;
 			_bpiRepository = bpiRepository;
@@ -103,7 +102,7 @@ namespace Currency.API.Application.Coindesk
 				return result.Error(ReturnCodeEnum.Fail, "取得Coindesk資訊失敗");
 			}
 
-			var timeInfoId = Guid.Parse(_configuration["CurrencyConfig:TimeInfoId"]!);
+			var timeInfoId =(Guid)request.TimeInfoId!;
 
 			//判斷是否有存在的資料
 			var timeInfoResult = await _timeInfoRepository.GetTimeInfoAsync(timeInfoId);

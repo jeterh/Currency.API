@@ -31,7 +31,7 @@ namespace Currency.API.Application.Currency
 			}
 
 			var contentsResult = await _contentRepository.GetContentAsync(request.TimeInfoId);
-			if (contentsResult == null)
+			if (contentsResult == null || !contentsResult.Any())
 			{
 				return new ResponseModel().Error(ReturnCodeEnum.Fail, $"你輸入的TimeInfoId：{request.TimeInfoId}不存在任何資料。");
 			}

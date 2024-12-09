@@ -9,6 +9,7 @@ namespace Currency.API.Application.Currency
 	public class GetCurrencysInput : IRequest<ResponseModel<GetCurrencysResponse>>
 	{
         public string? Language { get; set; }
+        public Guid? TimeInfoId { get; set; }
     }
 
 	public class GetCurrencysResponse
@@ -30,22 +31,20 @@ namespace Currency.API.Application.Currency
 
 	public class GetCurrencysInputHandler : IRequestHandler<GetCurrencysInput, ResponseModel<GetCurrencysResponse>>
 	{
-		private readonly IConfiguration _configuration;
 		private readonly IViewRepository _viewRepository;
 
-		public GetCurrencysInputHandler(IConfiguration configuration, IViewRepository viewRepository)
+		public GetCurrencysInputHandler(IViewRepository viewRepository)
 		{
-			_configuration = configuration;
 			_viewRepository = viewRepository;
 		}
 
 		public async Task<ResponseModel<GetCurrencysResponse>> Handle(GetCurrencysInput request, CancellationToken cancellationToken)
 		{
 		    var result = new ResponseModel<GetCurrencysResponse>();
-			var timeInfoId = Guid.Parse(_configuration["CurrencyConfig:TimeInfoId"]!);
+			var timeInfoId = (Guid)request.TimeInfoId!;
 
 			#region 取得基本資訊
-			var currencyInfos = await _viewRepository.GetCurrencyInfoAsync(timeInfoId);
+			var currencyInfos = await _viewRepository.GetCurrencyInfoAsync(timeInfoId!);
 			var currencyInfo = currencyInfos.Where(x => x.Language == request.Language).FirstOrDefault();
 
 			if (currencyInfo == null)
@@ -71,7 +70,7 @@ namespace Currency.API.Application.Currency
 			#endregion
 
 			#region 取得幣別資訊
-			var currencys = await _viewRepository.GetCurrencysAsync(timeInfoId);
+			var currencys = await _viewRepository.GetCurrencysAsync(timeInfoId!);
 			var currencyList = currencys.Where(x => x.Language == request.Language).OrderBy(y => y.CurrencyCode).ToList();
 
 			if (currencyList == null || currencyList.Count <= 0)

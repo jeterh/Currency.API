@@ -37,7 +37,7 @@ namespace Currency.API.Application.Currency
 			}
 
 			var bpisResult = await _bpiRepository.GetBpiAsync(request.TimeInfoId);
-			if (bpisResult == null)
+			if (bpisResult == null || !bpisResult.Any())
 			{
 				return new ResponseModel().Error(ReturnCodeEnum.Fail, $"你輸入的TimeInfoId：{request.TimeInfoId}不存在任何資料。");
 			}
