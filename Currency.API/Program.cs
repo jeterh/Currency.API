@@ -1,3 +1,4 @@
+using Currency.API.Middlewares;
 using Currency.API.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +12,9 @@ builder.Services.AddSwaggerGen(c =>
 {
 	c.OperationFilter<AuthenticationHeadersFilter>();
 });
+
 builder.Services.AddHttpClient();
+builder.Services.AddSingleton<ExceptionCatchMiddleware>();
 
 Currency.API.Application.Register.RegisterMediator(builder.Services);
 Currency.API.Application.Register.RegisterScopedServices(builder.Services);
@@ -32,5 +35,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseMiddleware<ExceptionCatchMiddleware>();
 
 app.Run();
