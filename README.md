@@ -1,9 +1,11 @@
 任務描述：請利用 ASP .NET Core 8.0 建置一個 Web API 專案，實作以下內容，將結果上傳至 GitHub，並提供repo鏈結。
 
 資料庫:SQL Server Express LocalDB（Entity Framework Core）
+
 A：<img width="296" alt="image" src="https://github.com/user-attachments/assets/82dacbae-6b5d-4f86-8270-cfb275bfa4ff">
 
 功能簡述
+
       1.呼叫 coindesk API，解析其下行內容與資料轉換，並實作新的 API。
           coindesk API：https://api.coindesk.com/v1/bpi/currentprice.json
       2.建立一張幣別與其對應中文名稱的資料表（需附建立SQL語法），並提供查詢/新增/修改/刪除功能 API。
@@ -216,17 +218,23 @@ Reponse:
     "message": "en-us is default Language can't delete."
    }
 4.	swagger-ui
+   
   A:<img width="1318" alt="image" src="https://github.com/user-attachments/assets/3c8a438e-d21f-4332-941a-d972c83600d5">
 6.	多語系設計
+
   A:Currency的GET API 取得多國語系幣別資訊, 當有填寫其他Language文案時，可透過Language可以切換至其他語系
     <img width="649" alt="image" src="https://github.com/user-attachments/assets/4cfe04b3-0df9-4b76-a2cc-8809745c07b8">
 8.	design pattern 實作
+
   A:整個專案都是使用Mediator(中介者模式)的design pattern進行開發，中介者模式最主要的好處為
     (1)乾淨的架構和關注點分離
     (2)減少耦合
 10.	能夠運行在 Docker
+
    A：<img width="278" alt="image" src="https://github.com/user-attachments/assets/a59d1041-e2dc-4a9e-bed1-8301b82470bc">
+   
 12.	加解密技術應用 (AES/RSA…etc.)
+
    Ａ:API的安全機制部份，在Header實作了Client-Id及Client-Secret的驗證機制，並且Client-Secret使用AES256進行加驗證，資料庫內儲存的是已Encrypt的AES256碼，可以避免人員讀取資料直接查詢到名碼的Secret KEY
      <img width="491" alt="image" src="https://github.com/user-attachments/assets/81f34ee2-4a7b-4091-9d73-ac5ded6337ce">
      <img width="529" alt="image" src="https://github.com/user-attachments/assets/6596ea99-f115-44d8-862b-8e891ae41566">
